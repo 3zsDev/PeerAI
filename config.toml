@@ -1,0 +1,37 @@
+# peerai configuration. Copy to ~/.peerai/config.toml or keep next to the project.
+
+dwell_ms = 700          # the gate: pointer/gaze must hold this long before anything happens (600-800 recommended)
+radius_px = 30          # how still the pointer must be to count as a fixation (mouse)
+webcam_radius_px = 80   # same, for webcam gaze (noisier)
+rearm_margin_px = 40    # pointer must leave the current block by this much...
+rearm_ms = 300          # ...for this long before a new block can take over
+trigger_mode = "confirm"  # "confirm": dwell highlights, F8 scans. "auto": dwell scans immediately.
+confirm_key = "f8"
+clear_key = "esc"
+panel_width = 380
+max_text_chars = 4000
+screenshot_box = [600, 400]
+min_block_size = [120, 40]
+
+# Windows whose title contains any of these words are never scanned.
+blocked_title_words = ["bank", "password", "1password", "bitwarden", "keepass", "lastpass"]
+blocked_processes = []
+
+[ai.text]  # any OpenAI-compatible chat endpoint
+base_url = "http://localhost:11434/v1"      # Ollama
+model = "qwen2.5:3b"
+api_key = "ollama"                           # ignored by Ollama; set a real key for api.deepseek.com
+# Official DeepSeek API (sanctioned, cheap, needs a key):
+#   base_url = "https://api.deepseek.com/v1"; model = "deepseek-chat"; api_key = "sk-..."
+# deepseek-bridge (unofficial web-UI scraper; may break or rate-limit your account):
+#   base_url = "http://127.0.0.1:11435/v1";  model = "deepseek-chat"
+max_tokens_summary = 400
+max_tokens_answer = 800
+timeout_s = 60
+
+[ai.vision]  # always Ollama: DeepSeek has no vision model
+host = "http://localhost:11434"
+model = "qwen2.5vl:3b"
+keep_alive = "10m"
+max_tokens = 300
+timeout_s = 120
